@@ -11,7 +11,8 @@ $config=[
     'profile_path'=>'profile',
     'w4k'=>1920,
     'h4k'=>1080,
-    'quality'=>137
+    'arcfile'=>'file.txt',
+    'urlfile'=>'url.txt'
 ];
 
 $config['frame_len']=$config['w4k']*$config['h4k'];
@@ -29,6 +30,7 @@ $config['ffmpeg_write']=$config['ffmpeg_path'].$config['ffmpeg_banner'].$config[
 
 if (PHP_OS_FAMILY === 'Windows') {
     $config['cores']=intval(getenv('NUMBER_OF_PROCESSORS'));
+    $config['os']='winda';
 }
 
 define("CNF",$config);

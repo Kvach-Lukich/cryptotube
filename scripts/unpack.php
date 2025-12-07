@@ -14,8 +14,19 @@ foreach($argv as $val){
         $url['url']=$val;
     }
 }
+
+if(!$url['url'] && CNF['os']=='winda'){
+    $form="powershell -sta -file \"".__DIR__."\\formurl.ps1\"";
+    $url['url']=trim(execute($form,null));
+}
+
 if(!$url['url']){
-    $url['url']=trim(file_get_contents('url.txt'));
+    $url['url']=trim(file_get_contents(CNF['urlfile']));
+    if(!$url['url']){
+        throw new Exception('no url', 500);
+    }
+}else{
+    file_put_contents(CNF['urlfile'],  $url['url']);
 }
 
 parse_str(parse_url($url['url'], PHP_URL_QUERY), $url_params);
